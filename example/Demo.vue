@@ -8,6 +8,8 @@
         :inline="true"
         :fullMonthName="true"
         :mondayFirst="true"
+        :disabledDates="disabledDates"
+        :highlighted="highlightedFn"
       />
     </div>
 
@@ -259,7 +261,9 @@ export default {
     return {
       styleInput: null,
       format: 'd MMMM yyyy',
-      disabledDates: {},
+      disabledDates: {
+        from: new Date(),
+      },
       openDate: null,
       disabledFn: {
         customPredictor (date) {

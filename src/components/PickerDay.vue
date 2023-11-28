@@ -16,7 +16,7 @@
         </div>
       </div>
     </header>
-    <div :class="isRtl ? 'flex-rtl' : ''">
+    <div class="options-container" :class="isRtl ? 'flex-rtl' : ''">
       <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
       <template v-if="blankDays > 0">
         <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
@@ -28,13 +28,22 @@
           v-html="dayCellContent(day)"
           @click="selectDate(day)"></span>
     </div>
+    <Controls
+      :canSetToday="canSetToday"
+      :selectedDate="selectedDate"
+      @handleRemoveBtn="$emit('handleRemoveBtn')"
+      @handleTodayBtn="$emit('handleTodayBtn')"
+    />
   </div>
 </template>
 <script>
 import { makeDateUtils } from '../utils/DateUtils'
+import Controls from './Controls.vue';
+
 export default {
   props: {
     showDayView: Boolean,
+    canSetToday: Boolean,
     selectedDate: Date,
     pageDate: Date,
     pageTimestamp: Number,
@@ -53,6 +62,7 @@ export default {
     mondayFirst: Boolean,
     useUtc: Boolean
   },
+  components: {Controls},
   data () {
     const constructedDateUtils = makeDateUtils(this.useUtc)
     return {
@@ -372,7 +382,10 @@ export default {
     isDefined (prop) {
       return typeof prop !== 'undefined' && prop
     }
-  }
+  },
+  mounted() {
+    this.$emit('dayContext', this);
+  },
 }
 // eslint-disable-next-line
 ;

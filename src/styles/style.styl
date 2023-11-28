@@ -17,12 +17,64 @@
       line-height 16px
       color #FFFFFF80
 
+    .action-buttons {
+      display flex
+      align-items: center;
+      justify-content: space-between;
+      padding 0 12px 12px
+
+      .button {
+        padding 8px 16px
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 16px;
+        border-radius: 36px;
+        cursor: pointer;
+        transition background .2s
+      }
+
+      .remove-button {
+        background transparent
+        border 1px solid #7A56E7
+        color #7A56E7
+
+        &:hover {
+          background #7A56E7
+          color #fff
+        }
+
+        &.disabled {
+          border-color #FFFFFF33
+          color #ffffff80
+          pointer-events none
+          cursor: not-allowed;
+        }
+      }
+
+      .today-button {
+        background #4A9EF4
+        color #fff
+
+        &:hover {
+          background #4185ce
+        }
+
+        &.disabled {
+          background #FFFFFF33
+          color #ffffff80
+          pointer-events none
+          cursor: not-allowed;
+        }
+      }
+    }
+
 .vdp-datepicker__calendar
     position absolute
     z-index 100
+    width 251px
     border-radius 8px
     background #1B1B1B
-    width 251px
     color #fff
     header
         display flex
@@ -89,10 +141,24 @@
             }
 
             &.disabled {
+              opacity .5;
               cursor: not-allowed;
               pointer-events: none;
             }
           }
+
+
+    .options-container {
+      padding 16px 8px;
+      margin-right: -4px
+      margin-bottom: -4px
+
+      &._not-a-day {
+        padding 16px 8px
+        margin-right: 0
+        margin-bottom: 0
+      }
+    }
 
     .disabled
         color #ddd
@@ -104,29 +170,40 @@
 
     .cell
         display inline-block
-        padding 0 5px
-        width (100/7)%
-        height 40px
-        line-height 40px
+        width calc(14.28% - 4px)
+        height: 30px
+        margin-right: 4px
+        margin-bottom: 4px
+        padding 6px 4px
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
         text-align center
         vertical-align middle
         border 1px solid transparent
+        border-radius: 4px;
+
+        &.today {
+          background #7A56E733;
+        }
+
+        &.disabled {
+          color #FFFFFF33;
+        }
+
         &:not(.blank):not(.disabled).day
         &:not(.blank):not(.disabled).month
         &:not(.blank):not(.disabled).year
             cursor pointer
             &:hover
-                border 1px solid #4bd
-        &.selected
-            background #4bd
-            &:hover
-                background #4bd
-            &.highlighted
-                background #4bd
+                border 1px solid #ffffff80;
         &.highlighted
-            background #cae5ed
-            &.disabled
-                color: #a3a3a3
+          background #7A56E733
+          color #fff
+        &.selected
+            background #7A56E733
+            color #7A56E7
         &.grey
             color #888
 
@@ -135,7 +212,6 @@
 
 
         &.day-header
-            font-size 75%
             white-space nowrap
             cursor inherit
             &:hover
@@ -144,6 +220,8 @@
     .month,
     .year
         width 33.333%
+        margin-right: 0
+        font-weight 600
 
 .vdp-datepicker__clear-button
 .vdp-datepicker__calendar-button

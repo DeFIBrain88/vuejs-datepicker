@@ -29,7 +29,6 @@
       <slot name="afterDateInput" slot="afterDateInput"></slot>
     </date-input>
 
-
     <!-- Day View -->
     <picker-day
       v-if="allowedToShowView('day')"
@@ -48,10 +47,15 @@
       :mondayFirst="mondayFirst"
       :dayCellContent="dayCellContent"
       :use-utc="useUtc"
+      :canSetToday="canSetToday"
       @changedMonth="handleChangedMonthFromDayPicker"
       @selectDate="selectDate"
       @showMonthCalendar="showMonthCalendar"
-      @selectedDisabled="selectDisabledDate">
+      @dayContext="dayPickerRef = $event"
+      @selectedDisabled="selectDisabledDate"
+      @handleRemoveBtn="handleClear"
+      @handleTodayBtn="handleToday"
+    >
       <slot name="beforeCalendarHeader" slot="beforeCalendarHeader"></slot>
     </picker-day>
 
@@ -59,6 +63,7 @@
     <picker-month
       v-if="allowedToShowView('month')"
       :pageDate="pageDate"
+      :canSetToday="canSetToday"
       :selectedDate="selectedDate"
       :showMonthView="showMonthView"
       :allowedToShowView="allowedToShowView"
@@ -70,7 +75,10 @@
       :use-utc="useUtc"
       @selectMonth="selectMonth"
       @showYearCalendar="showYearCalendar"
-      @changedYear="setPageDate">
+      @changedYear="setPageDate"
+      @handleRemoveBtn="handleClear"
+      @handleTodayBtn="handleToday"
+    >
       <slot name="beforeCalendarHeader" slot="beforeCalendarHeader"></slot>
     </picker-month>
 
@@ -78,6 +86,7 @@
     <picker-year
       v-if="allowedToShowView('year')"
       :pageDate="pageDate"
+      :canSetToday="canSetToday"
       :selectedDate="selectedDate"
       :showYearView="showYearView"
       :allowedToShowView="allowedToShowView"
@@ -88,7 +97,10 @@
       :isRtl="isRtl"
       :use-utc="useUtc"
       @selectYear="selectYear"
-      @changedDecade="setPageDate">
+      @changedDecade="setPageDate"
+      @handleRemoveBtn="handleClear"
+      @handleTodayBtn="handleToday"
+    >
       <slot name="beforeCalendarHeader" slot="beforeCalendarHeader"></slot>
     </picker-year>
   </div>
@@ -183,7 +195,8 @@ export default {
        */
       calendarHeight: 0,
       resetTypedDate: new Date(),
-      utils: constructedDateUtils
+      utils: constructedDateUtils,
+      dayPickerRef: null,
     }
   },
   watch: {
@@ -198,6 +211,13 @@ export default {
     }
   },
   computed: {
+    canSetToday() {
+      if (this.dayPickerRef) {
+        const today = this.dayPickerRef.days.find(day => day.isToday);
+        return today && !today.isDisabled;
+      }
+      return false;
+    },
     computedInitialView () {
       if (!this.initialView) {
         return this.minimumView
@@ -332,6 +352,22 @@ export default {
       this.setPageDate(date)
       this.$emit('selected', date)
       this.$emit('input', date)
+    },
+    /**
+     * Clear picked day
+     */
+    handleClear() {
+      this.clearDate();
+      this.showCalendar();
+    },
+    /**
+     * Pick today day.
+     */
+    handleToday() {
+      if (this.dayPickerRef) {
+        const today = this.dayPickerRef.days.find(day => day.isToday);
+        this.selectDate(today);
+      }
     },
     /**
      * Clear the selected date

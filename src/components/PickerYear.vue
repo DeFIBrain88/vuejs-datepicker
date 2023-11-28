@@ -16,21 +16,32 @@
         </div>
       </div>
     </header>
-    <span
-      class="cell year"
-      v-for="year in years"
-      :key="year.timestamp"
-      :class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
-      @click.stop="selectYear(year)">{{ year.year }}</span>
+    <div class="options-container _not-a-day">
+      <span
+        class="cell year"
+        v-for="year in years"
+        :key="year.timestamp"
+        :class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
+        @click.stop="selectYear(year)">{{ year.year }}
+      </span>
+    </div>
+    <Controls
+      :canSetToday="canSetToday"
+      :selectedDate="selectedDate"
+      @handleRemoveBtn="$emit('handleRemoveBtn')"
+      @handleTodayBtn="$emit('handleTodayBtn')"
+    />
   </div>
 </template>
 <script>
 import { makeDateUtils } from '../utils/DateUtils'
+import Controls from './Controls.vue';
 export default {
   props: {
     showYearView: Boolean,
     selectedDate: Date,
     pageDate: Date,
+    canSetToday: Boolean,
     pageTimestamp: Number,
     disabledDates: Object,
     highlighted: Object,
@@ -41,6 +52,7 @@ export default {
     allowedToShowView: Function,
     useUtc: Boolean
   },
+  components: {Controls},
   computed: {
     years () {
       const d = this.pageDate

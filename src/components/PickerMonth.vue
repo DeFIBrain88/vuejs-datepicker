@@ -16,20 +16,30 @@
         </div>
       </div>
     </header>
-    <span class="cell month"
-      v-for="month in months"
-      :key="month.timestamp"
-      :class="{'selected': month.isSelected, 'disabled': month.isDisabled}"
-      @click.stop="selectMonth(month)">{{ month.month }}</span>
+    <div class="options-container _not-a-day">
+      <span class="cell month"
+            v-for="month in months"
+            :key="month.timestamp"
+            :class="{'selected': month.isSelected, 'disabled': month.isDisabled}"
+            @click.stop="selectMonth(month)">{{ month.month }}</span>
+    </div>
+    <Controls
+      :canSetToday="canSetToday"
+      :selectedDate="selectedDate"
+      @handleRemoveBtn="$emit('handleRemoveBtn')"
+      @handleTodayBtn="$emit('handleTodayBtn')"
+    />
   </div>
 </template>
 <script>
 import { makeDateUtils } from '../utils/DateUtils'
+import Controls from './Controls.vue';
 export default {
   props: {
     showMonthView: Boolean,
     selectedDate: Date,
     pageDate: Date,
+    canSetToday: Boolean,
     pageTimestamp: Number,
     disabledDates: Object,
     calendarClass: [String, Object, Array],
@@ -39,6 +49,7 @@ export default {
     allowedToShowView: Function,
     useUtc: Boolean
   },
+  components: {Controls},
   data () {
     const constructedDateUtils = makeDateUtils(this.useUtc)
     return {
