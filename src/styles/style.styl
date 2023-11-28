@@ -5,55 +5,94 @@
     text-align left
     *
         box-sizing border-box
+    input
+      width 100px
+      padding 8px
+      border-radius 8px
+      border 1px solid rgba(255, 255, 255, 0.20)
+      background rgba(255, 255, 255, 0.10)
+      font-size 14px
+      font-style normal
+      font-weight 500
+      line-height 16px
+      color #FFFFFF80
 
 .vdp-datepicker__calendar
     position absolute
     z-index 100
-    background white
-    width 300px
-    border 1px solid #ccc
+    border-radius 8px
+    background #1B1B1B
+    width 251px
+    color #fff
     header
-        display block
-        line-height 40px
-        span
-            display inline-block
-            text-align center
-            width (100 - (100/7)*2)%
-            float left
+        display flex
+        padding 12px 12px 0;
 
-        .prev
-        .next
-            width (100/7)%
-            float left
-            text-indent -10000px
-            position relative
-            &:after
-                content ''
-                position absolute
-                left 50%
-                top 50%
-                transform translateX(-50%) translateY(-50%)
-                border 6px solid transparent
+        .current-position-header {
+          display flex
+          align-items: center;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: 16px;
+          cursor: pointer;
+          border-radius: 6px;
+          transition: background .2s;
 
-        .prev
-            &:after
-                border-right 10px solid #000
-                margin-left -5px
-            &.disabled:after
-                border-right 10px solid #ddd
-        .next
-            &:after
-                border-left 10px solid #000
-                margin-left 5px
-            &.disabled:after
-                border-left 10px solid #ddd
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
 
-        .prev:not(.disabled)
-        .next:not(.disabled)
-        .up:not(.disabled)
-            cursor pointer
-            &:hover
-                background #eee
+          &._year {
+            &:hover {
+              cursor: default;
+              background: transparent;
+            }
+          }
+        }
+
+        .arrow-group
+          display flex
+          align-items: center;
+          margin-left: auto;
+
+          .arrow-container {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+            }
+
+            &::after {
+              display: none;
+            }
+
+            &.prev,
+            &.next {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+
+            &.next {
+              margin-left: 4px
+              transform: rotate(180deg);
+            }
+
+            &.disabled {
+              cursor: not-allowed;
+              pointer-events: none;
+            }
+          }
 
     .disabled
         color #ddd

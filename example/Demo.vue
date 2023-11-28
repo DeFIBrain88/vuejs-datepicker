@@ -1,6 +1,16 @@
 <template>
   <div id="app">
     <h1>Datepicker Examples</h1>
+    <div class="pp-example">
+      <h3>pp datepicker...</h3>
+      <datepicker
+        placeholder="Pick a Date"
+        :inline="true"
+        :fullMonthName="true"
+        :mondayFirst="true"
+      />
+    </div>
+
     <div class="example">
       <h3>Default datepicker...</h3>
       <datepicker placeholder="Select Date" />
@@ -8,7 +18,6 @@
           &lt;datepicker placeholder="Select Date"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Typeable datepicker</h3>
       <datepicker placeholder="Type or select date" :typeable="true" />
@@ -16,7 +25,6 @@
           &lt;datepicker placeholder="Type or select date" :typeable="true"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Bootstrap styled datepicker</h3>
       <datepicker
@@ -29,7 +37,6 @@
           &lt;datepicker placeholder="Select Date"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
         <h3>v-model datepicker</h3>
         <datepicker placeholder="Select Date" v-model="vModelExample"></datepicker>
@@ -39,7 +46,6 @@
         <hr/>
       <p>{{ vModelExample }}</p>
     </div>
-
     <div class="example">
       <h3>Format datepicker</h3>
       <datepicker :format="format"></datepicker>
@@ -60,7 +66,6 @@
         </div>
       </div>
     </div>
-
     <div class="example">
       <h3>With minimum and maximum date range</h3>
       <datepicker :disabledDates="disabledDates"></datepicker>
@@ -87,7 +92,6 @@
         <datepicker :disabledDates="disabledDates"></datepicker>
       </div>
     </div>
-
     <div class="example">
       <div class="settings">
         <h5>Settings</h5>
@@ -108,7 +112,6 @@
         <datepicker :disabledDates="disabledFn"></datepicker>
       </div>
     </div>
-
     <div class="example">
       <h3>Highlighting Dates Matching Given Function</h3>
       <datepicker :highlighted="highlighted"></datepicker>
@@ -132,7 +135,6 @@
         <datepicker :highlighted="highlightedFn"></datepicker>
       </div>
     </div>
-
     <div class="example">
       <h3>Highlighting Dates</h3>
       <code>
@@ -158,7 +160,6 @@
         <datepicker :highlighted="highlighted"></datepicker>
       </div>
     </div>
-
     <div class="example">
       <h3>With default open date</h3>
       <datepicker :open-date="openDate"></datepicker>
@@ -174,7 +175,6 @@
         <pre>openDate: {{ openDate }}</pre>
       </div>
     </div>
-
     <div class="example">
       <h3>Translations</h3>
       <h5>{{ languages[language].language }} datepicker</h5>
@@ -190,7 +190,6 @@
         </select>
       </div>
     </div>
-
     <div class="example">
       <h3>Inline datepicker</h3>
       <datepicker :inline="true"></datepicker>
@@ -205,7 +204,6 @@
           &lt;datepicker :language="languages.he"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Day view only</h3>
       <datepicker :minimumView="'day'" :maximumView="'day'"></datepicker>
@@ -213,7 +211,6 @@
         &lt;datepicker :minimumView="'day'" :maximumView="'day'"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Day view only RTL</h3>
       <datepicker :minimumView="'day'" :maximumView="'day'" :language="languages.he"></datepicker>
@@ -221,7 +218,6 @@
         &lt;datepicker :minimumView="'day'" :maximumView="'day'" language="languages.he"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Month view only</h3>
       <datepicker :minimumView="'month'" :maximumView="'month'"></datepicker>
@@ -229,7 +225,6 @@
         &lt;datepicker :minimumView="'month'" :maximumView="'month'"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Day and month view only</h3>
       <datepicker :minimumView="'day'" :maximumView="'month'" :initialView="'month'"></datepicker>
@@ -237,7 +232,6 @@
         &lt;datepicker :minimumView="'day'" :maximumView="'month'" :initialView="'month'"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
     <div class="example">
       <h3>Year and month view only</h3>
       <datepicker :minimumView="'month'" :maximumView="'year'" :initialView="'year'"></datepicker>
@@ -245,7 +239,6 @@
         &lt;datepicker :minimumView="'month'" :maximumView="'year'" :initialView="'year'"&gt;&lt;/datepicker&gt;
       </code>
     </div>
-
   </div>
 </template>
 

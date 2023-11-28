@@ -2,15 +2,19 @@
   <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" :style="calendarStyle" @mousedown.prevent>
     <slot name="beforeCalendarHeader"></slot>
     <header>
-      <span
-        @click="isRtl ? nextMonth() : previousMonth()"
-        class="prev"
-        :class="{'disabled': isLeftNavDisabled}">&lt;</span>
-      <span class="day__month_btn" @click="showMonthCalendar" :class="allowedToShowView('month') ? 'up' : ''">{{ isYmd ? currYearName : currMonthName }} {{ isYmd ? currMonthName : currYearName }}</span>
-      <span
-        @click="isRtl ? previousMonth() : nextMonth()"
-        class="next"
-        :class="{'disabled': isRightNavDisabled}">&gt;</span>
+      <div class="current-position-header day__month_btn" @click="showMonthCalendar" :class="allowedToShowView('month') ? 'up' : ''">{{ isYmd ? currYearName : currMonthName }} {{ isYmd ? currMonthName : currYearName }}</div>
+      <div class="arrow-group">
+        <div class="arrow-container prev" :class="{'disabled': isLeftNavDisabled}"  @click="isRtl ? nextMonth() : previousMonth()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.76757 2.60453C10.1568 2.9938 10.1572 3.62483 9.76834 4.01453L5.89219 7.89914L9.76834 11.7838C10.1572 12.1735 10.1568 12.8045 9.76757 13.1938C9.378 13.5833 8.74638 13.5833 8.3568 13.1938L3.42219 8.25914C3.22337 8.06032 3.22337 7.73797 3.42219 7.53914L8.35681 2.60453C8.74638 2.21495 9.378 2.21495 9.76757 2.60453Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="arrow-container next" @click="isRtl ? previousMonth() : nextMonth()" :class="{'disabled': isRightNavDisabled}">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.76757 2.60453C10.1568 2.9938 10.1572 3.62483 9.76834 4.01453L5.89219 7.89914L9.76834 11.7838C10.1572 12.1735 10.1568 12.8045 9.76757 13.1938C9.378 13.5833 8.74638 13.5833 8.3568 13.1938L3.42219 8.25914C3.22337 8.06032 3.22337 7.73797 3.42219 7.53914L8.35681 2.60453C8.74638 2.21495 9.378 2.21495 9.76757 2.60453Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
     </header>
     <div :class="isRtl ? 'flex-rtl' : ''">
       <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
