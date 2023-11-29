@@ -1,3 +1,6 @@
+IT'S A FORK! IF YOU WANT TO USE THAT LIBRARY PLEASE USE ORIGINAL!
+
+
 # Datepicker
 
 [![Travis Build](https://img.shields.io/travis/charliekassel/vuejs-datepicker.svg)](https://travis-ci.org/charliekassel/vuejs-datepicker)
